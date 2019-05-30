@@ -7,6 +7,13 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
+;; config key-binding
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
+(global-set-key (kbd "C-c C-k") 'kill-this-buffer)
+
 ;; straight.el setting by myself
 (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
       (bootstrap-version 3))
@@ -157,11 +164,18 @@
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 (add-hook 'scala-mode-hook 'flycheck-mode)
 
+;; paredit
+(use-package paredit
+  :config
+  (bind-keys :map paredit-mode-map
+             ("C-h" . paredit-backward-delete)))
+
 ;; clojure
 (use-package clojure-mode
   :init
   (add-hook 'clojure-mode-hook #'yas-minor-mode)
-  (add-hook 'clojure-mode-hook #'subword-mode))
+  (add-hook 'clojure-mode-hook #'subword-mode)
+  (add-hook 'clojure-mode-hook #'paredit-mode))
 ;; cider
 (use-package cider
   :init
@@ -182,3 +196,39 @@
 (use-package clj-refactor
   :diminish clj-refactor-mode
   :config (cljr-add-keybindings-with-prefix "C-c j"))
+
+;; markdown-mode
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
+  :config
+  (setq
+   markdown-command "github-markup"
+   markdown-command-needs-filename t
+   markdown-content-type "applicaiton/xhtml+xml"
+   markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css")
+   markdown-xhtml-header-content "
+<style>
+body {
+  box-sizing: border-box;
+  max-width: 740px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('markdown-body');
+});
+</script>
+"))
+
+;; python
+(use-package jedi-core)
+(use-package company-jedi)
+(setq jedi:complete-on-dot t)
+(setq jedi:use-shortcuts t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-to-list 'company-backends 'company-jedi)
