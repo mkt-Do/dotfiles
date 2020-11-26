@@ -1,12 +1,13 @@
-
-[alias]
-  st = status
-  co = checkout
-  br = branch
-[core]
-  excludesfile = /User/makoto-ishizaki/.gitignore_global
-[credential]
-	helper = osxkeychain
+# This is Git's per-user configuration file.
 [user]
-	name = Makoto-Ishizaki
-	email = makoto.ishizaki@geniee.co.jp
+# add user name
+[alias]
+  br = branch
+  co = checkout
+  st = status
+  home = rev-parse --show-toplevel
+  tree = log --graph --all --format="%x09%an%x09%h %d %s"
+[grep]
+	lineNumber = true
+[core]
+	excludesFile = /Users/makoto.ishizaki/.config/git/ignore
