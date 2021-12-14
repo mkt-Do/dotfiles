@@ -62,17 +62,6 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-# add path
-# anyenv
-eval "$(anyenv init -)"
-# pyenv
-#eval "$(pyenv init -)"
-# rbenv
-eval "$(rbenv init -)"
-# ocaml
-eval $(opam env)
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-# java_home
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
-PATH=${JAVA_HOME}/bin:${PATH}
+# >>> coursier install directory >>>
+export PATH="$PATH:/Users/makoto.ishizaki/Library/Application Support/Coursier/bin"
+# <<< coursier install directory <<<

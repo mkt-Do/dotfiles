@@ -10,4 +10,4 @@
 [grep]
 	lineNumber = true
 [core]
-	excludesFile = /Users/makoto.ishizaki/.config/git/ignore
+	excludesFile = ~/.config/git/ignore

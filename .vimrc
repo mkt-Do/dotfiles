@@ -56,6 +56,7 @@ endif
 " Required:
 filetype plugin indent on
 syntax enable
+au BufRead, BufNewFile *.md set filetype=markdown
 
 " If you want to install not installed plugins on startup.
 if has('vim_starting') && dein#check_install()
@@ -117,6 +118,14 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 "---------------------------------------------------------
+" Dart Vim Plugins
+"---------------------------------------------------------
+let dart_html_in_string=v:true
+let g:dart_style_guide=2
+let g:dart_format_on_save=1
+"let g:dartfmt_options
+
+"---------------------------------------------------------
 " coc nvim
 "---------------------------------------------------------
 " mark when error or warning happens
@@ -137,3 +146,8 @@ nmap <silent> <space>df <Plug>(coc-definition)
 nmap <silent> <space>rf <Plug>(coc-references)
 nmap <silent> <space>rn <Plug>(coc-rename)
 nmap <silent> <space>fmt <Plug>(coc-format)
+
+" OCaml (merlin)
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+set rtp^="/Users/makoto.ishizaki/.opam/default/share/ocp-indent/vim"
